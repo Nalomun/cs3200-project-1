@@ -1,0 +1,66 @@
+<%- include('layout/header', {title}) %>
+
+<h1 class="mb-4">Job Listings</h1>
+
+<div class="mb-3">
+  <input type="text" id="filterInput" class="form-control form-control-lg" placeholder="Filter by company or role type...">
+</div>
+
+<div class="table-responsive">
+  <table id="listingsTable" class="table table-dark table-striped table-hover">
+    <thead class="table-secondary">
+      <tr>
+        <th>Company</th>
+        <th>Title</th>
+        <th>Role Type</th>
+        <th>Location</th>
+        <th>Salary Range</th>
+        <th>Status</th>
+        <th>Posted Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% listings.forEach(listing => { %>
+        <tr onclick="window.location.href='/listings/<%= listing.listing_id %>'" style="cursor:pointer;">
+          <td><strong><%= listing.company_name %></strong></td>
+          <td><%= listing.title %></td>
+          <td><%= listing.role_type %></td>
+          <td><%= listing.location %></td>
+          <td><% if (listing.salary_min && listing.salary_max) { %>$<%= (listing.salary_min / 1000).toFixed(0) %>K – $<%= (listing.salary_max / 1000).toFixed(0) %>K<% } else { %>—<% } %></td>
+          <td>
+            <% if (listing.is_active) { %>
+              <span class="badge bg-success">Active</span>
+            <% } else { %>
+              <span class="badge bg-secondary">Inactive</span>
+            <% } %>
+          </td>
+          <td><%= listing.posted_date %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  document.getElementById('filterInput').addEventListener('keyup', function() {
+    const filter = this.value.toUpperCase();
+    const table = document.getElementById('listingsTable');
+    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+    
+    for (let i = 0; i < rows.length; i++) {
+      const cells = rows[i].getElementsByTagName('td');
+      let match = false;
+      
+      for (let j = 0; j < cells.length && j < 3; j++) {
+        if (cells[j].innerText.toUpperCase().includes(filter)) {
+          match = true;
+          break;
+        }
+      }
+      
+      rows[i].style.display = match ? '' : 'none';
+    }
+  });
+</script>
+
+<%- include('layout/footer') %>

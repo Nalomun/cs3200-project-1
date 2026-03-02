@@ -1,0 +1,64 @@
+<%- include('layout/header', {title}) %>
+
+<h1 class="mb-4">All Applications</h1>
+
+<div class="table-responsive">
+  <table class="table table-dark table-striped table-hover">
+    <thead class="table-secondary">
+      <tr>
+        <th>Applicant</th>
+        <th>Company</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Outcome Detail</th>
+        <th>Offer Salary</th>
+        <th>Date Applied</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% applications.forEach(app => { %>
+        <tr>
+          <td>
+            <a href="/applicants/<%= app.applicant_id %>" class="text-light text-decoration-none">
+              <strong><%= app.username %></strong>
+            </a>
+          </td>
+          <td>
+            <a href="/listings/<%= app.listing_id %>" class="text-light text-decoration-none">
+              <%= app.company_name %>
+            </a>
+          </td>
+          <td><%= app.title %></td>
+          <td>
+            <% if (app.status === 'accepted') { %>
+              <span class="badge bg-success">Accepted</span>
+            <% } else if (app.status === 'rejected') { %>
+              <span class="badge bg-danger">Rejected</span>
+            <% } else if (app.status === 'applied') { %>
+              <span class="badge bg-warning">Applied</span>
+            <% } else if (app.status === 'withdrawn') { %>
+              <span class="badge bg-secondary">Withdrawn</span>
+            <% } %>
+          </td>
+          <td>
+            <small>
+              <% if (app.outcome_detail === 'Offer Received') { %>
+                <span class="badge bg-success"><%= app.outcome_detail %></span>
+              <% } else if (app.outcome_detail.includes('Rejected')) { %>
+                <span class="badge bg-danger"><%= app.outcome_detail %></span>
+              <% } else if (app.outcome_detail === 'Self-Withdrawn') { %>
+                <span class="badge bg-secondary"><%= app.outcome_detail %></span>
+              <% } else { %>
+                <span class="badge bg-warning"><%= app.outcome_detail %></span>
+              <% } %>
+            </small>
+          </td>
+          <td><% if (app.status === 'accepted' && app.offer_salary) { %>$<%= (app.offer_salary / 1000).toFixed(0) %>K<% } else { %>—<% } %></td>
+          <td><%= app.applied_date %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('layout/footer') %>

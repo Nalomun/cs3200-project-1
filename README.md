@@ -192,7 +192,6 @@ Advisor  1 ◇────< N  Advisor_Bookmark  N >────  1  Job_Listing
 ```
 
 ---
-
 ## How to Run Queries Individually
 
 ```bash
@@ -208,6 +207,33 @@ sqlite3 -header -column project-1-database.db < queries/project-1-query-8.sql
 ```
 
 ---
+## Recruit.log Node Express Sqlite EJS Application
+
+A simple web application built with Node.js, Express, SQLite, and EJS that allows users to interact with the Recruit.log database through a user-friendly interface. Users can view job listings, submit applications, and analyze outcomes without needing direct SQL access.
+
+### FrontEnd
+/app/views/index.ejs
+HTML + EJS + ES6 + Bootstrap
+
+### BackEnd
+Node.js + Express
+
+#### Routing
+/app/routes/index.js
+
+#### DB Connector
+/db
+
+
+### Database
+SQLite
+
+
+### Usage
+```
+npm install
+npm start
+```
 
 ## Authors
 

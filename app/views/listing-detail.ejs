@@ -1,0 +1,110 @@
+<%- include('layout/header', {title}) %>
+
+<a href="/listings" class="btn btn-outline-light mb-3">← Back to Listings</a>
+
+<div class="card bg-secondary mb-4">
+  <div class="card-body">
+    <h1 class="card-title"><%= listing.title %></h1>
+    <p class="text-muted"><strong><%= listing.company_name %></strong> • <%= listing.headquarters_location %></p>
+    
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <p><strong>Role Type:</strong> <%= listing.role_type %></p>
+        <p><strong>Location:</strong> <%= listing.location %></p>
+        <p><strong>Experience Level:</strong> <%= listing.experience_level %></p>
+        <p><strong>Listing Type:</strong> <%= listing.listing_type %></p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Salary Range:</strong> 
+          <% if (listing.salary_min && listing.salary_max) { %>
+            $<%= (listing.salary_min / 1000).toFixed(0) %>K – $<%= (listing.salary_max / 1000).toFixed(0) %>K
+          <% } else { %>
+            —
+          <% } %>
+        </p>
+        <p><strong>Status:</strong> 
+          <% if (listing.is_active) { %>
+            <span class="badge bg-success">Active</span>
+          <% } else { %>
+            <span class="badge bg-secondary">Inactive</span>
+          <% } %>
+        </p>
+        <p><strong>Posted:</strong> <%= listing.posted_date %></p>
+        <p><strong>Closes:</strong> <%= listing.closing_date %></p>
+      </div>
+    </div>
+    
+    <hr>
+    <h5>Description</h5>
+    <p><%= listing.description %></p>
+    
+    <% if (listing.website_url) { %>
+      <p><a href="<%= listing.website_url %>" target="_blank" class="btn btn-primary">Visit Company Website</a></p>
+    <% } %>
+  </div>
+</div>
+
+<div class="mb-4">
+  <h3>Required Skills</h3>
+  <% if (requirements && requirements.length > 0) { %>
+    <div>
+      <% requirements.forEach(req => { %>
+        <span class="badge me-2 mb-2" style="background-color: <%= req.is_required ? '#dc3545' : '#0dcaf0' %>;">
+          <%= req.skill_name %>
+          <% if (req.is_required) { %> (Required)<% } %>
+          <% if (req.desired_proficiency) { %> - <%= req.desired_proficiency %><% } %>
+        </span>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <p class="text-muted">No specific skills listed.</p>
+  <% } %>
+</div>
+
+<div class="mb-4">
+  <h3>Applications (<%= applications ? applications.length : 0 %>)</h3>
+  <% if (applications && applications.length > 0) { %>
+    <div class="table-responsive">
+      <table class="table table-dark table-striped">
+        <thead class="table-secondary">
+          <tr>
+            <th>Applicant</th>
+            <th>University</th>
+            <th>GPA</th>
+            <th>Status</th>
+            <th>Offer Salary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% applications.forEach(app => { %>
+            <tr>
+              <td>
+                <a href="/applicants/<%= app.applicant_id %>" class="text-light text-decoration-none">
+                  <%= app.username %>
+                </a>
+              </td>
+              <td><%= app.university %></td>
+              <td><%= app.gpa %></td>
+              <td>
+                <% if (app.status === 'accepted') { %>
+                  <span class="badge bg-success">Accepted</span>
+                <% } else if (app.status === 'rejected') { %>
+                  <span class="badge bg-danger">Rejected</span>
+                <% } else if (app.status === 'applied') { %>
+                  <span class="badge bg-warning">Applied</span>
+                <% } else if (app.status === 'withdrawn') { %>
+                  <span class="badge bg-secondary">Withdrawn</span>
+                <% } %>
+              </td>
+              <td><% if (app.status === 'accepted' && app.offer_salary) { %>$<%= (app.offer_salary / 1000).toFixed(0) %>K<% } else { %>—<% } %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <p class="text-muted">No applications yet.</p>
+  <% } %>
+</div>
+
+<%- include('layout/footer') %>

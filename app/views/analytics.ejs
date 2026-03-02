@@ -1,0 +1,311 @@
+<%- include('layout/header', {title}) %>
+
+<h1 class="mb-4">Analytics Dashboard</h1>
+
+<!-- Query 1 -->
+<div class="card bg-secondary mb-4">
+  <div class="card-header bg-dark">
+    <h5 class="mb-0">Query 1: Accepted Applicants' Skills by Company</h5>
+    <small class="text-muted">Shows skills of accepted candidates organized by company</small>
+  </div>
+  <div class="card-body">
+    <% if (query1 && query1.length > 0) { %>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Role</th>
+              <th>Applicant</th>
+              <th>Skill</th>
+              <th>Proficiency</th>
+              <th>Offer Salary</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% query1.forEach(row => { %>
+              <tr>
+                <td><%= row.company_name %></td>
+                <td><%= row.listing_title %></td>
+                <td><%= row.username %></td>
+                <td><%= row.skill_name %></td>
+                <td><span class="badge bg-info"><%= row.proficiency_level %></span></td>
+                <td><% if (row.offer_salary) { %>$<%= (row.offer_salary / 1000).toFixed(0) %>K<% } else { %>—<% } %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <p class="text-muted">No data available.</p>
+    <% } %>
+  </div>
+</div>
+
+<!-- Query 2 -->
+<div class="card bg-secondary mb-4">
+  <div class="card-header bg-dark">
+    <h5 class="mb-0">Query 2: Above-Average GPA Applicants</h5>
+    <small class="text-muted">Applicants with GPAs higher than the average of accepted candidates</small>
+  </div>
+  <div class="card-body">
+    <% if (query2 && query2.length > 0) { %>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>University</th>
+              <th>GPA</th>
+              <th>Degree</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% query2.forEach(row => { %>
+              <tr>
+                <td><%= row.username %></td>
+                <td><%= row.university %></td>
+                <td><strong><%= row.gpa %></strong></td>
+                <td><%= row.degree_level %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <p class="text-muted">No data available.</p>
+    <% } %>
+  </div>
+</div>
+
+<!-- Query 3 -->
+<div class="card bg-secondary mb-4">
+  <div class="card-header bg-dark">
+    <h5 class="mb-0">Query 3: Companies with &lt;50% Acceptance Rate</h5>
+    <small class="text-muted">Selective companies with lower offer rates</small>
+  </div>
+  <div class="card-body">
+    <% if (query3 && query3.length > 0) { %>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Total Applications</th>
+              <th>Accepted</th>
+              <th>Acceptance Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% query3.forEach(row => { %>
+              <tr>
+                <td><strong><%= row.company_name %></strong></td>
+                <td><%= row.total_applications %></td>
+                <td><span class="badge bg-success"><%= row.total_accepted %></span></td>
+                <td><strong><%= row.acceptance_rate_pct %>%</strong></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <p class="text-muted">No data available.</p>
+    <% } %>
+  </div>
+</div>
+
+<!-- Query 4 -->
+<div class="card bg-secondary mb-4">
+  <div class="card-header bg-dark">
+    <h5 class="mb-0">Query 4: High-Potential Applicants</h5>
+    <small class="text-muted">Top performers meeting specific education/experience criteria</small>
+  </div>
+  <div class="card-body">
+    <% if (query4 && query4.length > 0) { %>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>University</th>
+              <th>Degree</th>
+              <th>GPA</th>
+              <th>Years of Experience</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% query4.forEach(row => { %>
+              <tr>
+                <td><%= row.username %></td>
+                <td><%= row.university %></td>
+                <td><span class="badge bg-info"><%= row.degree_level %></span></td>
+                <td><%= row.gpa %></td>
+                <td><%= row.years_of_experience %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <p class="text-muted">No data available.</p>
+    <% } %>
+  </div>
+</div>
+
+<!-- Query 5 -->
+<div class="card bg-secondary mb-4">
+  <div class="card-header bg-dark">
+    <h5 class="mb-0">Query 5: Salary Rankings by Company</h5>
+    <small class="text-muted">Highest-paid offers ranked within each company</small>
+  </div>
+  <div class="card-body">
+    <% if (query5 && query5.length > 0) { %>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Role</th>
+              <th>Applicant</th>
+              <th>Offer Salary</th>
+              <th>Rank</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% query5.forEach(row => { %>
+              <tr>
+                <td><strong><%= row.company_name %></strong></td>
+                <td><%= row.title %></td>
+                <td><%= row.username %></td>
+                <td><strong>$<%= (row.offer_salary / 1000).toFixed(0) %>K</strong></td>
+                <td><span class="badge bg-warning">#<%= row.salary_rank %></span></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <p class="text-muted">No data available.</p>
+    <% } %>
+  </div>
+</div>
+
+<!-- Query 6 -->
+<div class="card bg-secondary mb-4">
+  <div class="card-header bg-dark">
+    <h5 class="mb-0">Query 6: Rejection Funnel Analysis</h5>
+    <small class="text-muted">Track at which stage applicants were rejected</small>
+  </div>
+  <div class="card-body">
+    <% if (query6 && query6.length > 0) { %>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th>Applicant</th>
+              <th>Company</th>
+              <th>Role</th>
+              <th>Outcome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% query6.forEach(row => { %>
+              <tr>
+                <td><%= row.username %></td>
+                <td><%= row.company_name %></td>
+                <td><%= row.title %></td>
+                <td>
+                  <% if (row.outcome_detail === 'Offer Received') { %>
+                    <span class="badge bg-success"><%= row.outcome_detail %></span>
+                  <% } else if (row.outcome_detail.includes('Rejected')) { %>
+                    <span class="badge bg-danger"><%= row.outcome_detail %></span>
+                  <% } else if (row.outcome_detail === 'Self-Withdrawn') { %>
+                    <span class="badge bg-secondary"><%= row.outcome_detail %></span>
+                  <% } else { %>
+                    <span class="badge bg-warning"><%= row.outcome_detail %></span>
+                  <% } %>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <p class="text-muted">No data available.</p>
+    <% } %>
+  </div>
+</div>
+
+<!-- Query 7 -->
+<div class="card bg-secondary mb-4">
+  <div class="card-header bg-dark">
+    <h5 class="mb-0">Query 7: Salary Bracket Distribution</h5>
+    <small class="text-muted">How many offers fall into each salary range</small>
+  </div>
+  <div class="card-body">
+    <% if (query7 && query7.length > 0) { %>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th>Salary Range</th>
+              <th>Number of Offers</th>
+              <th>Applicants</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% query7.forEach(row => { %>
+              <tr>
+                <td><strong><%= row.salary_range %></strong></td>
+                <td><span class="badge bg-success"><%= row.num_offers %></span></td>
+                <td><small><%= row.applicants %></small></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <p class="text-muted">No data available.</p>
+    <% } %>
+  </div>
+</div>
+
+<!-- Query 8 -->
+<div class="card bg-secondary mb-4">
+  <div class="card-header bg-dark">
+    <h5 class="mb-0">Query 8: Skill Success Rates</h5>
+    <small class="text-muted">How many accepted vs rejected applicants have each skill</small>
+  </div>
+  <div class="card-body">
+    <% if (query8 && query8.length > 0) { %>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th>Type</th>
+              <th>Accepted</th>
+              <th>Rejected</th>
+              <th>Total Applicants</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% query8.forEach(row => { %>
+              <tr>
+                <td><strong><%= row.skill_name %></strong></td>
+                <td><small><%= row.skill_type %></small></td>
+                <td><span class="badge bg-success"><%= row.accepted_with_skill || 0 %></span></td>
+                <td><span class="badge bg-danger"><%= row.rejected_with_skill || 0 %></span></td>
+                <td><span class="badge bg-secondary"><%= row.total_applicants_with_skill || 0 %></span></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <p class="text-muted">No data available.</p>
+    <% } %>
+  </div>
+</div>
+
+<%- include('layout/footer') %>

@@ -1,0 +1,36 @@
+<%- include('layout/header', {title}) %>
+
+<h1 class="mb-4">Applicants</h1>
+
+<div class="table-responsive">
+  <table class="table table-dark table-striped table-hover">
+    <thead class="table-secondary">
+      <tr>
+        <th>Username</th>
+        <th>University</th>
+        <th>GPA</th>
+        <th>Degree</th>
+        <th>Grad Year</th>
+        <th>Exp (Years)</th>
+        <th>Total Apps</th>
+        <th>Accepted</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% applicants.forEach(applicant => { %>
+        <tr onclick="window.location.href='/applicants/<%= applicant.applicant_id %>'" style="cursor:pointer;">
+          <td><strong><%= applicant.username %></strong></td>
+          <td><%= applicant.university %></td>
+          <td><%= applicant.gpa %></td>
+          <td><%= applicant.degree_level %></td>
+          <td><%= applicant.graduation_year %></td>
+          <td><%= applicant.years_of_experience %></td>
+          <td><%= applicant.total_apps || 0 %></td>
+          <td><span class="badge bg-success"><%= applicant.accepted_count || 0 %></span></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('layout/footer') %>

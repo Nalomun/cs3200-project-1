@@ -1,0 +1,117 @@
+<%- include('layout/header', {title}) %>
+
+<a href="/applicants" class="btn btn-outline-light mb-3">← Back to Applicants</a>
+
+<div class="card bg-secondary mb-4">
+  <div class="card-body">
+    <h1 class="card-title"><%= applicant.username %></h1>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Email:</strong> <%= applicant.email %></p>
+        <p><strong>University:</strong> <%= applicant.university %></p>
+        <p><strong>GPA:</strong> <%= applicant.gpa %></p>
+        <p><strong>Degree Level:</strong> <%= applicant.degree_level %></p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Graduation Year:</strong> <%= applicant.graduation_year %></p>
+        <p><strong>Years of Experience:</strong> <%= applicant.years_of_experience %></p>
+        <% if (applicant.is_anonymized) { %>
+          <p><span class="badge bg-warning">Anonymized Profile</span></p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mb-4">
+  <h3>Skills</h3>
+  <% if (skills && skills.length > 0) { %>
+    <div>
+      <% 
+        const advanced = skills.filter(s => s.proficiency_level === 'advanced');
+        const intermediate = skills.filter(s => s.proficiency_level === 'intermediate');
+        const beginner = skills.filter(s => s.proficiency_level === 'beginner');
+      %>
+      
+      <% if (advanced.length > 0) { %>
+        <h5>Advanced</h5>
+        <div class="mb-3">
+          <% advanced.forEach(skill => { %>
+            <span class="badge bg-success me-2 mb-2"><%= skill.skill_name %><% if (skill.years_used) { %> (<%= skill.years_used %> yrs)<% } %></span>
+          <% }); %>
+        </div>
+      <% } %>
+      
+      <% if (intermediate.length > 0) { %>
+        <h5>Intermediate</h5>
+        <div class="mb-3">
+          <% intermediate.forEach(skill => { %>
+            <span class="badge bg-info me-2 mb-2"><%= skill.skill_name %><% if (skill.years_used) { %> (<%= skill.years_used %> yrs)<% } %></span>
+          <% }); %>
+        </div>
+      <% } %>
+      
+      <% if (beginner.length > 0) { %>
+        <h5>Beginner</h5>
+        <div class="mb-3">
+          <% beginner.forEach(skill => { %>
+            <span class="badge bg-secondary me-2 mb-2"><%= skill.skill_name %><% if (skill.years_used) { %> (<%= skill.years_used %> yrs)<% } %></span>
+          <% }); %>
+        </div>
+      <% } %>
+    </div>
+  <% } else { %>
+    <p class="text-muted">No skills listed.</p>
+  <% } %>
+</div>
+
+<div class="mb-4">
+  <h3>Applications (<%= applications ? applications.length : 0 %>)</h3>
+  <% if (applications && applications.length > 0) { %>
+    <div class="table-responsive">
+      <table class="table table-dark table-striped">
+        <thead class="table-secondary">
+          <tr>
+            <th>Company</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Rejection Stage</th>
+            <th>Offer Salary</th>
+            <th>Date Applied</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% applications.forEach(app => { %>
+            <tr>
+              <td>
+                <a href="/listings/<%= app.listing_id %>" class="text-light text-decoration-none">
+                  <%= app.company_name %>
+                </a>
+              </td>
+              <td><%= app.title %></td>
+              <td>
+                <% if (app.status === 'accepted') { %>
+                  <span class="badge bg-success">Accepted</span>
+                <% } else if (app.status === 'rejected') { %>
+                  <span class="badge bg-danger">Rejected</span>
+                <% } else if (app.status === 'applied') { %>
+                  <span class="badge bg-warning">Applied</span>
+                <% } else if (app.status === 'withdrawn') { %>
+                  <span class="badge bg-secondary">Withdrawn</span>
+                <% } %>
+              </td>
+              <td><%= app.rejection_stage || '—' %></td>
+              <td><% if (app.status === 'accepted' && app.offer_salary) { %>$<%= (app.offer_salary / 1000).toFixed(0) %>K<% } else { %>—<% } %></td>
+              <td><%= app.applied_date %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <p class="text-muted">No applications yet.</p>
+  <% } %>
+</div>
+
+<%- include('layout/footer') %>

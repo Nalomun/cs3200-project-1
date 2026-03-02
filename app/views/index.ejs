@@ -1,0 +1,75 @@
+<%- include('layout/header', {title}) %>
+
+<div class="row">
+  <div class="col-12">
+    <section class="hero-section text-center py-5 mb-5">
+      <h1 class="display-4 fw-bold mb-3">Recruit.log</h1>
+      <p class="lead text-muted">Mapping CS Internship and Job Outcomes</p>
+    </section>
+  </div>
+</div>
+
+<div class="row mb-5">
+  <div class="col-md-6 col-lg-3 mb-3">
+    <div class="card bg-secondary border-0 text-center p-4">
+      <h3 class="card-title text-primary"><%= stats.totalListings %></h3>
+      <p class="card-text">Total Listings</p>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3 mb-3">
+    <div class="card bg-secondary border-0 text-center p-4">
+      <h3 class="card-title text-info"><%= stats.totalApplicants %></h3>
+      <p class="card-text">Total Applicants</p>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3 mb-3">
+    <div class="card bg-secondary border-0 text-center p-4">
+      <h3 class="card-title text-warning"><%= stats.totalApplications %></h3>
+      <p class="card-text">Total Applications</p>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3 mb-3">
+    <div class="card bg-secondary border-0 text-center p-4">
+      <h3 class="card-title text-success"><%= stats.acceptedOffers %></h3>
+      <p class="card-text">Accepted Offers</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-lg-3 mb-3">
+    <a href="/listings" class="text-decoration-none">
+      <div class="card bg-secondary border border-primary p-4 h-100">
+        <h5 class="card-title">Listings</h5>
+        <p class="card-text text-muted">Browse all job listings and internships</p>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-6 col-lg-3 mb-3">
+    <a href="/applicants" class="text-decoration-none">
+      <div class="card bg-secondary border border-info p-4 h-100">
+        <h5 class="card-title">Applicants</h5>
+        <p class="card-text text-muted">View all applicants and their profiles</p>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-6 col-lg-3 mb-3">
+    <a href="/applications" class="text-decoration-none">
+      <div class="card bg-secondary border border-warning p-4 h-100">
+        <h5 class="card-title">Applications</h5>
+        <p class="card-text text-muted">Track all applications and outcomes</p>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-6 col-lg-3 mb-3">
+    <a href="/analytics" class="text-decoration-none">
+      <div class="card bg-secondary border border-success p-4 h-100">
+        <h5 class="card-title">Analytics</h5>
+        <p class="card-text text-muted">Explore insights from 8 key queries</p>
+      </div>
+    </a>
+  </div>
+</div>
+
+<%- include('layout/footer') %>
+
