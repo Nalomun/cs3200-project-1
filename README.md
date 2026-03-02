@@ -1,7 +1,7 @@
 # Recruit.log: Mapping CS Internship and Job Outcomes
 
 A complete database design and implementation for **Recruit.log**, a platform that records and analyzes internship and job application outcomes among Computer Science students, providing data-driven insights for applicants, advisors, and institutional researchers.
-[`Lucid Charts URL`](https://lucid.app/lucidchart/31024f5d-6e28-4502-a421-59f5102a6888/edit?viewport_loc=107%2C-11%2C756%2C812%2C0_0&invitationId=inv_e56990e6-dac0-4dba-97eb-1ae8ceedb72a)
+[`Lucid Charts URL`](https://lucid.app/lucidchart/31024f5d-6e28-4502-a421-59f5102a6888/edit?viewport_loc=-556%2C-513%2C1532%2C812%2C0_0&invitationId=inv_e56990e6-dac0-4dba-97eb-1ae8ceedb72a)
 ---
 
 ## Quick Start
