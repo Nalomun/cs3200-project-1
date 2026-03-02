@@ -1,7 +1,7 @@
 # Recruit.log: Mapping CS Internship and Job Outcomes
 
 A complete database design and implementation for **Recruit.log**, a platform that records and analyzes internship and job application outcomes among Computer Science students, providing data-driven insights for applicants, advisors, and institutional researchers.
-[`docs/project-1-requirements-document.pdf`](Lucid Charts URL)
+[`Lucid Charts URL`](docs/project-1-requirements-document.pdf)
 ---
 
 ## Quick Start
