@@ -11,7 +11,7 @@ A complete database design and implementation for **Recruit.log**, a platform th
 bash setup.sh
 
 # 2. Run any query
-sqlite3 -header -column recruitlog.db < sql/queries/query1_three_table_join.sql
+sqlite3 -header -column recruitlog.db < sql/queries/project-1-query-1.sql
 
 ```
 
@@ -22,32 +22,31 @@ sqlite3 -header -column recruitlog.db < sql/queries/query1_three_table_join.sql
 ```
 recruit-log-db/
 ├── README.md                  ← This file
-├── .gitignore
-├── setup.sh                   ← Creates the database from SQL scripts
+├── LICENSE                    ← License
+├── project-1-populate-data.sql      ← [Q4] DDL statements
+├── project-1-database.db            ← [Q5] Contains the written database
 │
 ├── docs/
-│   ├── requirements.pdf       ← [Q0] Requirements document
-│   ├── bcnf_schema.pdf        ← [Q3] Relational schema + BCNF proof
-│   └── query_outputs.txt      ← [Q6] Example outputs of all queries
+│   ├── project-1-requirements-document.pdf       ← [Q0] Requirements document
+│   ├── project-1-schema-BCNF.pdf                 ← [Q3] Relational schema + BCNF proof
+│   ├── project-1-slack-proposal.pdf              ← [Q?] Slack proposal
+│   └── project-1-query-outputs.txt               ← [Q6] Docs of outputs of all queries
 │
 ├── diagrams/
-│   ├── uml_conceptual_model.png  ← [Q1] Static PNG of UML Conceptual Model
-│   ├── uml_conceptual_model.mmd  ← [Q1] Mermaid Source of UML
-│   ├── erd_logical_model.png     ← [Q2] Static PNG of ERD Logical Model
-│   └── erd_logical_model.mmd     ← [Q2] Mermaid Source of ERD
+│   ├── project-1 UML Diagram.png  ← [Q1] Static PNG of UML Conceptual Model
+│   ├── project-1 UML Diagram.pdf  ← [Q1] Mermaid Source of UML
+│   ├── project-1 ERD Diagram.png     ← [Q2] Static PNG of ERD Logical Model
+│   └── project-1 ERD Diagram.pdf     ← [Q2] Mermaid Source of ERD
 │
-├── sql/
-│   ├── create_tables.sql      ← [Q4] DDL statements
-│   ├── populate_data.sql      ← [Q5] Test data
-│   └── queries/
-│       ├── query1_three_table_join.sql    ← [Q6] Join of 6 tables
-│       ├── query2_subquery.sql            ← [Q6] Scalar subquery
-│       ├── query3_group_by_having.sql     ← [Q6] GROUP BY + HAVING
-│       ├── query4_complex_search.sql      ← [Q6] Complex search criterion
-│       ├── query5_partition_by.sql        ← [Q6] RANK() with PARTITION BY
-│       ├── query6_case_when.sql           ← [Q6] SELECT CASE/WHEN
-│       ├── query7_rcte.sql               ← [Q6] Recursive CTE
-│       └── query8_correlated_subquery.sql ← [Q6] Correlated subquery
+├── queries/
+│   ├── project-1-query-1.sql    ← [Q6] Join of 6 tables
+│   ├── project-1-query-2.sql    ← [Q6] Scalar subquery
+│   ├── project-1-query-3.sql    ← [Q6] GROUP BY + HAVING
+│   ├── project-1-query-4.sql    ← [Q6] Complex search criterion
+│   ├── project-1-query-5.sql    ← [Q6] RANK() with PARTITION BY
+│   ├── project-1-query-6.sql    ← [Q6] SELECT CASE/WHEN
+│   ├── project-1-query-7.sql    ← [Q6] Recursive CTE
+│   └── project-1-query-8.sql    ← [Q6] Correlated subquery
 ```
 
 ---
@@ -56,13 +55,13 @@ recruit-log-db/
 
 ### Q0 — Requirements Document (10 pts)
 
-**File:** [`docs/requirements.pdf`](docs/requirements.pdf)
+**File:** [`docs/project-1-requirements-document.pdf`](docs/project-1-requirements-document.pdf)
 
 Describes the CS recruiting problem domain, lists 12 business rules, user personas and user stories, and extracts candidate nouns (entities/attributes) and verbs (relationships/actions) from a requirements narrative. Key rules include: applicant data is anonymized when public, applicants can only apply to each listing once, and application outcomes track rejection stage.
 
 ### Q1 — UML Conceptual Model (15 pts)
 
-*(Available as static graphic: [`diagrams/uml_conceptual_model.png`](diagrams/uml_conceptual_model.png))*
+*(Available as static graphic: [`diagrams/project-1 UML Diagram.png`](diagrams/project-1 UML Diagram.png))*
 
 Ten classes with full multiplicity constraints, domain-typed attributes, and labeled relationships across all four UML relationship types:
 
@@ -87,7 +86,7 @@ Ten classes with full multiplicity constraints, domain-typed attributes, and lab
 
 ### Q2 — Logical Data Model / ERD (10 pts)
 
-*(Available as static graphic: [`diagrams/erd_logical_model.png`](diagrams/erd_logical_model.png))*
+*(Available as static graphic: [`diagrams/project-1 ERD Diagram.png`](diagrams/project-1 ERD Diagram.png))*
 
 Uses Crow's Foot notation with SQL data types (int, text, real, boolean, date). All M:N relationships resolved into association entities:
 - **Applicant_Skill** resolves Applicant ↔ Skill (carries `proficiency_level` and `years_used`)
@@ -97,7 +96,7 @@ Uses Crow's Foot notation with SQL data types (int, text, real, boolean, date). 
 
 ### Q3 — Relational Schema in BCNF (15 pts)
 
-**File:** [`docs/bcnf_schema.pdf`](docs/bcnf_schema.pdf)
+**File:** [`docs/project-1-schema-BCNF.pdf`](docs/project-1-schema-BCNF.pdf)
 
 Eleven relations, each proven to be in BCNF by listing functional dependencies and verifying every determinant is a superkey:
 
