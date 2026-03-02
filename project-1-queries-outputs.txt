@@ -1,0 +1,241 @@
+============================================================
+  Recruit.log Database — Query Output Documentation
+============================================================
+
+Generated from a clean database build.
+Tables: Company(12), Job_Listing(14), Internship(7),
+        Full_Time_Position(7), Skill(15), Applicant(15),
+        Applicant_Skill(40), Listing_Requirement(25),
+        Application(30), Advisor(5), Advisor_Bookmark(10)
+
+============================================================
+-- ============================================================
+-- Query 1: Three-Table Join (6 tables)
+-- Description: Show accepted applicants' skills for each
+--   company. Joins Application -> Applicant, Job_Listing ->
+--   Company, and Applicant_Skill -> Skill to reveal what
+--   skills successful candidates had.
+-- ============================================================
+company_name   listing_title              username      skill_name        proficiency_level  offer_salary
+-------------  -------------------------  ------------  ----------------  -----------------  ------------
+Anthropic      Research Engineer           carol_ml      Django            intermediate       210000.0
+Anthropic      Research Engineer           carol_ml      JavaScript        intermediate       210000.0
+Anthropic      Research Engineer           carol_ml      Machine Learning  intermediate       210000.0
+Anthropic      Research Engineer           carol_ml      Python            advanced           210000.0
+Anthropic      Research Engineer           carol_ml      React             advanced           210000.0
+Anthropic      Research Engineer           eve_data      AWS               intermediate       230000.0
+Anthropic      Research Engineer           eve_data      Docker            intermediate       230000.0
+Anthropic      Research Engineer           eve_data      Machine Learning  advanced           230000.0
+Anthropic      Research Engineer           eve_data      Python            advanced           230000.0
+Anthropic      Research Engineer           eve_data      SQL               advanced           230000.0
+Citadel        Quantitative Researcher     henry_quant   C++               advanced           300000.0
+Citadel        Quantitative Researcher     henry_quant   Machine Learning  advanced           300000.0
+Citadel        Quantitative Researcher     henry_quant   Python            advanced           300000.0
+Citadel        Quantitative Researcher     henry_quant   SQL               intermediate       300000.0
+Citadel        Quantitative Researcher     henry_quant   System Design     advanced           300000.0
+Datadog        Co-op Data Engineer         dave_sys      Docker            beginner           8500.0
+Datadog        Co-op Data Engineer         dave_sys      Java              intermediate       8500.0
+Datadog        Co-op Data Engineer         dave_sys      SQL               intermediate       8500.0
+Datadog        Co-op Data Engineer         dave_sys      Spring Boot       beginner           8500.0
+Figma          Frontend Intern             carol_ml      Django            intermediate       8500.0
+Figma          Frontend Intern             carol_ml      JavaScript        intermediate       8500.0
+Figma          Frontend Intern             carol_ml      Machine Learning  intermediate       8500.0
+Figma          Frontend Intern             carol_ml      Python            advanced           8500.0
+Figma          Frontend Intern             carol_ml      React             advanced           8500.0
+Google         SWE Intern Summer 2026      alice_dev     Git               advanced           10500.0
+Google         SWE Intern Summer 2026      alice_dev     Java              intermediate       10500.0
+Google         SWE Intern Summer 2026      alice_dev     Python            advanced           10500.0
+Google         SWE Intern Summer 2026      alice_dev     React             intermediate       10500.0
+Google         SWE Intern Summer 2026      bob_algo      C++               advanced           11000.0
+Google         SWE Intern Summer 2026      bob_algo      Machine Learning  advanced           11000.0
+Google         SWE Intern Summer 2026      bob_algo      Python            advanced           11000.0
+Google         SWE Intern Summer 2026      bob_algo      System Design     intermediate       11000.0
+Google         SWE L3 New Grad             bob_algo      C++               advanced           175000.0
+Google         SWE L3 New Grad             bob_algo      Machine Learning  advanced           175000.0
+Google         SWE L3 New Grad             bob_algo      Python            advanced           175000.0
+Google         SWE L3 New Grad             bob_algo      System Design     intermediate       175000.0
+Jane Street    Trading Intern              bob_algo      C++               advanced           15500.0
+Jane Street    Trading Intern              bob_algo      Machine Learning  advanced           15500.0
+Jane Street    Trading Intern              bob_algo      Python            advanced           15500.0
+Jane Street    Trading Intern              bob_algo      System Design     intermediate       15500.0
+Jane Street    Trading Intern              henry_quant   C++               advanced           16000.0
+Jane Street    Trading Intern              henry_quant   Machine Learning  advanced           16000.0
+Jane Street    Trading Intern              henry_quant   Python            advanced           16000.0
+Jane Street    Trading Intern              henry_quant   SQL               intermediate       16000.0
+Jane Street    Trading Intern              henry_quant   System Design     advanced           16000.0
+Palantir       Defense Tech Intern         frank_sec     C++               intermediate       10000.0
+Palantir       Defense Tech Intern         frank_sec     Python            intermediate       10000.0
+Palantir       Defense Tech Intern         frank_sec     System Design     beginner           10000.0
+Ramp           Backend Engineer            eve_data      AWS               intermediate       155000.0
+Ramp           Backend Engineer            eve_data      Docker            intermediate       155000.0
+Ramp           Backend Engineer            eve_data      Machine Learning  advanced           155000.0
+Ramp           Backend Engineer            eve_data      Python            advanced           155000.0
+Ramp           Backend Engineer            eve_data      SQL               advanced           155000.0
+Scale AI       ML Engineer                 eve_data      AWS               intermediate       175000.0
+Scale AI       ML Engineer                 eve_data      Docker            intermediate       175000.0
+Scale AI       ML Engineer                 eve_data      Machine Learning  advanced           175000.0
+Scale AI       ML Engineer                 eve_data      Python            advanced           175000.0
+Scale AI       ML Engineer                 eve_data      SQL               advanced           175000.0
+Startup XYZ    Full-Stack Engineer         jack_backend  Git               intermediate       95000.0
+Startup XYZ    Full-Stack Engineer         jack_backend  Java              beginner           95000.0
+Startup XYZ    Full-Stack Engineer         jack_backend  SQL               beginner           95000.0
+
+============================================================
+-- ============================================================
+-- Query 2: Subquery
+-- Description: Find applicants whose GPA exceeds the average
+--   GPA of all accepted applicants. Uses a scalar subquery
+--   in the WHERE clause to compute the acceptance GPA threshold.
+-- ============================================================
+username     university              gpa   degree_level
+-----------  ----------------------  ----  ------------
+henry_quant  Cornell University      3.95  MS
+bob_algo     MIT                     3.92  BS
+eve_data     UC Berkeley             3.91  MS
+kate_ai      Columbia University     3.88  PhD
+alice_dev    Northeastern University 3.85  BS
+
+============================================================
+-- ============================================================
+-- Query 3: GROUP BY with HAVING
+-- Description: Calculate each company's acceptance rate and
+--   filter to only show companies with an acceptance rate
+--   below 50%. Uses CASE/WHEN inside SUM for conditional
+--   counting and HAVING to filter aggregated results.
+-- ============================================================
+company_name  total_applications  total_accepted  acceptance_rate_pct
+------------  ------------------  --------------  -------------------
+Stripe        4                   0               0.0
+Figma         3                   1               33.3
+Palantir      3                   1               33.3
+Datadog       3                   1               33.3
+Google        7                   3               42.9
+
+============================================================
+-- ============================================================
+-- Query 4: Complex Search Criterion (AND/OR with multiple expressions)
+-- Description: Find applicants who are either graduate students
+--   (MS/PhD) with 2+ years of experience, OR undergraduate (BS)
+--   students with a GPA above 3.8 who know Python at an
+--   advanced level. Demonstrates complex logical connectors.
+-- ============================================================
+username     university              degree_level  gpa   years_of_experience
+-----------  ----------------------  ------------  ----  -------------------
+bob_algo     MIT                     BS            3.92  2
+alice_dev    Northeastern University BS            3.85  1
+henry_quant  Cornell University      MS            3.95  2
+eve_data     UC Berkeley             MS            3.91  2
+olivia_ds    Northeastern University MS            3.80  2
+kate_ai      Columbia University     PhD           3.88  3
+
+============================================================
+-- ============================================================
+-- Query 5: Window Function (PARTITION BY)
+-- Description: Rank accepted applicants by offer salary within
+--   each company using the RANK() window function. Partitions
+--   by company so rankings reset per employer.
+-- ============================================================
+company_name  title                      username      offer_salary  salary_rank
+------------  -------------------------  ------------  ------------  -----------
+Anthropic     Research Engineer           eve_data      230000.0      1
+Anthropic     Research Engineer           carol_ml      210000.0      2
+Citadel       Quantitative Researcher     henry_quant   300000.0      1
+Datadog       Co-op Data Engineer         dave_sys      8500.0        1
+Figma         Frontend Intern             carol_ml      8500.0        1
+Google        SWE L3 New Grad             bob_algo      175000.0      1
+Google        SWE Intern Summer 2026      bob_algo      11000.0       2
+Google        SWE Intern Summer 2026      alice_dev     10500.0       3
+Jane Street   Trading Intern              henry_quant   16000.0       1
+Jane Street   Trading Intern              bob_algo      15500.0       2
+Palantir      Defense Tech Intern         frank_sec     10000.0       1
+Ramp          Backend Engineer            eve_data      155000.0      1
+Scale AI      ML Engineer                 eve_data      175000.0      1
+Startup XYZ   Full-Stack Engineer         jack_backend  95000.0       1
+
+============================================================
+-- ============================================================
+-- Query 6: SELECT CASE/WHEN
+-- Description: Map each application's raw status and rejection
+--   stage into human-readable outcome labels. Creates a
+--   rejection funnel analysis showing exactly where in the
+--   pipeline each applicant was eliminated.
+-- ============================================================
+username      company_name  title                      outcome_detail
+------------  ------------  -------------------------  ---------------------------
+alice_dev     Datadog       Co-op Data Engineer         Self-Withdrawn
+alice_dev     Figma         Frontend Intern             Rejected: Online Assessment
+alice_dev     Google        SWE Intern Summer 2026      Offer Received
+alice_dev     Google        SWE L3 New Grad             In Progress
+alice_dev     Stripe        Backend Intern              Rejected: Final Interview
+bob_algo      Citadel       Quantitative Researcher     Rejected: Online Assessment
+bob_algo      Google        SWE Intern Summer 2026      Offer Received
+bob_algo      Google        SWE L3 New Grad             Offer Received
+bob_algo      Jane Street   Trading Intern              Offer Received
+bob_algo      Palantir      Defense Tech Intern         Rejected: Final Interview
+carol_ml      Anthropic     Research Engineer            Offer Received
+carol_ml      Figma         Frontend Intern             Offer Received
+carol_ml      Scale AI      ML Engineer                 Rejected: Final Interview
+carol_ml      Stripe        Backend Intern              Rejected: Resume Screen
+dave_sys      Datadog       Co-op Data Engineer         Offer Received
+dave_sys      Palantir      Defense Tech Intern         Rejected: Resume Screen
+dave_sys      Stripe        Backend Intern              Rejected: Online Assessment
+eve_data      Anthropic     Research Engineer            Offer Received
+eve_data      Google        SWE L3 New Grad             Rejected: Final Interview
+eve_data      Ramp          Backend Engineer            Offer Received
+eve_data      Scale AI      ML Engineer                 Offer Received
+frank_sec     Google        SWE Intern Summer 2026      Rejected: Phone Screen
+frank_sec     Palantir      Defense Tech Intern         Offer Received
+grace_web     Figma         Frontend Intern             In Progress
+henry_quant   Anthropic     Research Engineer            Rejected: Final Interview
+henry_quant   Citadel       Quantitative Researcher     Offer Received
+henry_quant   Jane Street   Trading Intern              Offer Received
+iris_cloud    Datadog       Co-op Data Engineer         Rejected: Final Interview
+iris_cloud    Google        SWE Intern Summer 2026      Rejected: Online Assessment
+jack_backend  Startup XYZ   Full-Stack Engineer         Offer Received
+jack_backend  Stripe        Backend Intern              In Progress
+
+============================================================
+-- ============================================================
+-- Query 7: Recursive CTE (RCTE)
+-- Description: Dynamically generate $25,000 salary brackets
+--   using a recursive CTE, then count how many accepted offers
+--   fall into each bracket. Demonstrates recursive query
+--   generation without hardcoding bracket boundaries.
+-- ============================================================
+salary_range     num_offers  applicants
+---------------  ----------  -----------------------------------------------------------
+0 - 25000        7           alice_dev (Google),bob_algo (Google),bob_algo (Jane Street),
+                             carol_ml (Figma),dave_sys (Datadog),frank_sec (Palantir),
+                             henry_quant (Jane Street)
+75000 - 100000   1           jack_backend (Startup XYZ)
+150000 - 175000  1           eve_data (Ramp)
+175000 - 200000  2           bob_algo (Google),eve_data (Scale AI)
+200000 - 225000  1           carol_ml (Anthropic)
+225000 - 250000  1           eve_data (Anthropic)
+275000 - 300000  1           henry_quant (Citadel)
+
+============================================================
+-- ============================================================
+-- Query 8: Correlated Subquery + Aggregation
+-- Description: For each skill, count how many accepted vs
+--   rejected applicants possessed it. Uses correlated subqueries
+--   to compute per-skill success metrics, helping identify which
+--   skills correlate with hiring outcomes.
+-- ============================================================
+skill_name        skill_type  accepted_with_skill  rejected_with_skill  total_applicants_with_skill
+----------------  ----------  -------------------  -------------------  --------------------------
+Python            language    6                    7                    7
+SQL               language    4                    3                    4
+Machine Learning  concept     4                    4                    4
+Java              language    3                    2                    3
+C++               language    3                    3                    3
+System Design     concept     3                    3                    3
+React             framework   2                    2                    3
+Docker            tool        2                    3                    3
+Git               tool        2                    2                    3
+JavaScript        language    1                    1                    2
+Django            framework   1                    1                    1
+Spring Boot       framework   1                    1                    1
+AWS               tool        1                    2                    2
+TypeScript        language    0                    0                    1
+Node.js           framework   0                    0                    1
